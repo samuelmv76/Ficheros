@@ -1,5 +1,7 @@
 package Ficheros;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,8 +12,9 @@ public class ficheroTexto {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		leerf();
-		escribirFich();
+		
+		escribirBuffer();
+		leerBuffer();
 	}
 	
 	
@@ -58,5 +61,40 @@ public class ficheroTexto {
 			
 		}
 	}
-
+	static private void leerBuffer() {
+		
+		File fich = new File("fich1.txt");
+		try {
+			BufferedReader br = new BufferedReader((new FileReader(fich)));
+			String linea;
+			while((linea = br.readLine())!=null){
+				System.out.println(linea);
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}  catch (IOException ioex) {
+			
+		}
+	}
+	static private void escribirBuffer() {
+		File fich = new File("fich1.txt");
+		
+		String cadena = "Esto es un ejemplo de File Writer";
+		char[] cad = cadena.toCharArray();
+		try {
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fich));
+			for(int i=0; i<cad.length; i++) {
+				bw.write(cad[i]);
+				bw.newLine();
+			}
+		bw.close();
+		}  catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}  catch (IOException ioex) {
+			
+		}
+	}
+	
 }
